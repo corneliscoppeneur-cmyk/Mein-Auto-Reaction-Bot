@@ -16,6 +16,12 @@ services:
       - LOG_LEVEL=${LOG_LEVEL:-info}
     env_file:
       - .env
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.auto-reaction-bot.rule=Host(`meinereaktion.duckdns.org`)"
+      - "traefik.http.routers.auto-reaction-bot.entrypoints=websecure"
+      - "traefik.http.routers.auto-reaction-bot.tls.certresolver=letsencrypt"
+      - "traefik.http.services.auto-reaction-bot.loadbalancer.server.port=3000"
     healthcheck:
       test: ["CMD-SHELL", "node -e \"require('http').get('http://localhost:3000/health', (res) => process.exit(res.statusCode === 200 ? 0 : 1))\""]
       interval: 30s
