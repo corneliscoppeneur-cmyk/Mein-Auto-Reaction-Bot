@@ -37,6 +37,43 @@
 - Lightweight Code - Easy Setup ✓
 - More Comming Soon...
 
+## 🚀 Telegram Serverless (empfohlen / recommended)
+
+### Deutsch
+
+Der Bot läuft direkt auf [Telegram Serverless](https://core.telegram.org/bots/serverless). Kein VPS, kein Docker, kein Cloudflare. Der Code liegt in `tgcloud/`:
+
+- `tgcloud/handlers/message.js` – `/start`, `/reactions`, sonst Reaktion auf die Nachricht.
+- `tgcloud/handlers/channel_post.js` – Reaktion auf Kanalbeiträge.
+- `tgcloud/lib/react.js` – Auswahl der Reaktion. Erlaubt ein Chat nur bestimmte Reaktionen, wählt der Bot automatisch eine davon (kein `REACTION_INVALID` mehr).
+- `tgcloud/lib/config.js` – Emoji-Liste, `RANDOM_LEVEL`, gesperrte Chats, Bot-Name.
+
+Einrichtung:
+
+1. @BotFather → dein Bot → **Serverless** einschalten → **CLI Access** → Access Token (beginnt mit `app…:`, nicht der Bot-API-Token).
+2. Werte in `tgcloud/lib/config.js` anpassen.
+3. Im Projektordner:
+
+```sh
+npm ci
+npx tgcloud login
+npx tgcloud fetch
+npx tgcloud status
+npx tgcloud push
+npx tgcloud webhook sync
+npx tgcloud status
+```
+
+`webhook sync` stellt den Webhook auf Telegram Serverless um. Ein bisher laufender Server bekommt danach keine Updates mehr. In Kanälen braucht der Bot Adminrechte.
+
+### English
+
+The bot runs directly on [Telegram Serverless](https://core.telegram.org/bots/serverless): no VPS, Docker or Cloudflare. Enable Serverless in @BotFather, get the CLI access token, adjust `tgcloud/lib/config.js`, then run the commands above. If a chat limits its reactions, the bot picks one of the allowed emojis.
+
+### AI assistant instructions
+
+Serverless code lives only in `tgcloud/`. Read `AGENTS.md` and `docs/tgcloud-sdk.md` first. Modules import the platform SDK from `sdk`; Bot API failures throw `BotApiError`. The bot stores no data, so `tgcloud/schema.js` has no tables. Never commit `.tgcloud/` or tokens. The legacy Node/Workers code in `api/` is kept only as a fallback.
+
 ## 🚀 Deploy on PasS
 
 Set All Environmental variables before deploy. -  [Instructions](#-configuring-environments)

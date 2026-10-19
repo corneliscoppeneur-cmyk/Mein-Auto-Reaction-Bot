@@ -7,7 +7,9 @@
   "scripts": {
     "start": "node api/index.js",
     "vercel": "vercel dev",
-    "cloudflare": "wrangler dev"
+    "cloudflare": "wrangler dev",
+    "deploy": "tgcloud push",
+    "status": "tgcloud status"
   },
   "dependencies": {
     "dotenv": "^17.2.3",
@@ -15,5 +17,8 @@
   },
   "engines": {
     "node": ">=22.x"
+  },
+  "devDependencies": {
+    "@tgcloud/cli": "^0.2.0"
   }
 }
